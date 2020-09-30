@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using CinemaBoxOffice.API.Helpers;
 using CinemaBoxOffice.API.Interfaces;
 using CinemaBoxOffice.API.Models.Session;
 
 namespace CinemaBoxOffice.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class SessionController : ControllerBase

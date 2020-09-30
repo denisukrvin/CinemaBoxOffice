@@ -14,6 +14,11 @@ namespace CinemaBoxOffice.API.Services
             _dataContext = context;
         }
 
+        public UserModel Get(int userId)
+        {
+            return _dataContext.Users.FirstOrDefault(u => u.Id == userId);
+        }
+
         public UserModel Get(string email)
         {
             return _dataContext.Users.FirstOrDefault(u => u.Email == email);
