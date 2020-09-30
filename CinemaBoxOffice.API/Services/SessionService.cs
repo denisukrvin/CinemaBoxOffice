@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using CinemaBoxOffice.API.Data;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using CinemaBoxOffice.API.Interfaces;
 using CinemaBoxOffice.API.Models.Session;
 using CinemaBoxOffice.API.Models.Common.Api;
@@ -18,12 +19,12 @@ namespace CinemaBoxOffice.API.Services
 
         public List<SessionModel> All()
         {
-            return _dataContext.Sessions.ToList();
+            return _dataContext.Sessions.Include(s => s.Reservation).ToList();
         }
 
         public SessionModel Get(int sessionId)
         {
-            return _dataContext.Sessions.FirstOrDefault(s => s.Id == sessionId);
+            return _dataContext.Sessions.Include(s => s.Reservation).FirstOrDefault(s => s.Id == sessionId);
         }
 
         public OperationResponse CreateOrEdit(SessionModel model)

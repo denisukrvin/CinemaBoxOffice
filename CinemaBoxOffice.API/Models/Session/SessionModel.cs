@@ -1,6 +1,7 @@
 ﻿using System;
 using CinemaBoxOffice.API.Helpers;
 using System.ComponentModel.DataAnnotations;
+using CinemaBoxOffice.API.Models.Reservation;
 
 namespace CinemaBoxOffice.API.Models.Session
 {
@@ -16,5 +17,7 @@ namespace CinemaBoxOffice.API.Models.Session
         [DataType(DataType.DateTime)]
         [CustomDate]
         public DateTime? Date { get; set; }
+
+        public ReservationModel Reservation { get; set; }
     }
 }
