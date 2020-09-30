@@ -1,4 +1,5 @@
 using CinemaBoxOffice.API.Data;
+using CinemaBoxOffice.API.Helpers;
 using CinemaBoxOffice.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,10 +22,18 @@ namespace CinemaBoxOffice.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            // configure db context
             services.AddDbContext<DataContext>(opts => 
                 opts.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            // configure DI for application services
             services.AddScoped<ISessionService, SessionService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
+
             services.AddControllers();
         }
 
