@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using CinemaBoxOffice.API.Data;
 using CinemaBoxOffice.API.Helpers;
 using CinemaBoxOffice.API.Services;
@@ -38,6 +39,12 @@ namespace CinemaBoxOffice.API
             services.AddControllers()
                 .AddNewtonsoftJson(options => 
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            // swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CinemaBoxOffice API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -46,6 +53,12 @@ namespace CinemaBoxOffice.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CinemaBoxOffice API v1");
+            });
 
             app.UseHttpsRedirection();
             app.UseRouting();
